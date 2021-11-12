@@ -1,6 +1,6 @@
 /*
- * UC4:-Refactor Code to do the following 
- *     - Create the preparedStatement to Retrieve payroll data and By Name.
+ * UC5:- Ability to retrieve all employees who have joined in a particular data range from the payroll service database .
+ * 
  * 
  * @author : Navaya Shree
  * @since : 12-11-2021
@@ -21,7 +21,7 @@ public class EmployeeTableRetrieve {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String qry = "select * from employee_payroll.payroll_service where name='Terisa'";
+		String qry = "select * from employee_payroll.payroll_service where start between Cast('2020-01-01' as date) and date (now())";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
