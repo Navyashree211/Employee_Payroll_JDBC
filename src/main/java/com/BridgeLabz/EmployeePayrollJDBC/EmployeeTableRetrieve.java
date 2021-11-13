@@ -21,11 +21,12 @@ public class EmployeeTableRetrieve {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String qry = "select * from employee_payroll.payroll_service where start between Cast('2020-01-01' as date) and date (now())";
+		String qry = "select sum(basic_pay), avg(basic_pay), max(basic_pay), min(basic_pay) from employee_payroll.payroll_service where gender = 'F' and gender = 'M' group by gender ";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
 			System.out.println("Driver Class Loaded");
+
 
 			con = ConnectionDB.createCP();
 
@@ -35,26 +36,34 @@ public class EmployeeTableRetrieve {
 			System.out.println("Data Update");
 
 			rs = pstmt.executeQuery();
-
+          
 			while (rs.next()) {
-				int id = rs.getInt(1);
-				String name = rs.getString(2);
-				long phone_number = rs.getLong(3);
-				String address = rs.getString(4);
-                String department = rs.getString(5);
-				String gender = rs.getString(6);
-				double basic_pay = rs.getDouble(7);
-				double deductions = rs.getDouble(8);
-				double taxable_pay = rs.getDouble(9);
-				double tax = rs.getDouble(10);
-				double met_pay = rs.getDouble(11);
-				Date state = rs.getDate(12);
-
-				System.out.println("EmpId :-" + id + "  " +"EmpName :- " + name + " " + "Emp_PhoneNo. :-" + phone_number + " " + "EmpAddress :- " + address + " " + " EmpDepartment :-" + department + " "
-						+ "Gender :- "+ gender + " " + "Basic_Pay " +  basic_pay + " " + " Deduction :- " + deductions + " " + "Taxable_pay :- " + taxable_pay + " " + "Tax :-" +tax + " " + "Met_Pay :- " + met_pay
-						+ " " + "Date :-" +  state );
+				System.out.println(rs.getInt(1));
 			}
+			
+//			while (rs.next()) {
+//				int id = rs.getInt(1);
+//				String name = rs.getString(2);
+//				long phone_number = rs.getLong(3);
+//				String address = rs.getString(4);
+//               String department = rs.getString(5);
+//				String gender = rs.getString(6);
+//				double basic_pay = rs.getDouble(7);
+//				double deductions = rs.getDouble(8);
+//				double taxable_pay = rs.getDouble(9);
+//				double tax = rs.getDouble(10);
+//				double met_pay = rs.getDouble(11);
+//				Date state = rs.getDate(12);
+//
+//				System.out.println("EmpId :-" + id + "  " +"EmpName :- " + name + " " + "Emp_PhoneNo. :-" + phone_number + " " + "EmpAddress :- " + address + " " + " EmpDepartment :-" + department + " "
+//						+ "Gender :- "+ gender + " " + "Basic_Pay " +  basic_pay + " " + " Deduction :- " + deductions + " " + "Taxable_pay :- " + taxable_pay + " " + "Tax :-" +tax + " " + "Met_Pay :- " + met_pay
+//						+ " " + "Date :-" +  state );
+          
+				//System.out.println(gender + " Gender having sum of Basic_Pay of Employee: " );
+				
+			//}
 
+				
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
